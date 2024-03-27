@@ -1,11 +1,19 @@
-import React from 'react'
+'use client'
+import React, { useState } from 'react'
 import searchIcon from '@/Assets/SearchIcon.png'
 import Image from 'next/image'
-const SearchComponent = () => {
+const SearchComponent = (prop: any) => {
+  const [userChange, setUserChange] = useState<string>("");
+const handleKeyDown = (e:any )=>{
+  if (e.key === "Enter") {
+  e.preventDefault();
+  prop.setUserInput(userChange);
+}};
   return (
-    <form className='flex mx-[21px]'>
-        <input type="text" className='w-[290px] searchClass' />
-        <Image className='ml-[8px] pt-[41px] flex-auto' src={searchIcon} alt="Search Icon" />
+    <form className='flex mx-[21px] items-end'>
+      <input type="text" className='w-full searchClass h-[52px]' onChange={(e) => setUserChange(e.target.value)} 
+      onKeyDown={handleKeyDown} />
+      <Image className='ml-[8px] pt-[41px] flex-auto cursor-pointer' src={searchIcon} alt="Search Icon" onClick={() => prop.setUserInput(userChange)} />
     </form>
   )
 }

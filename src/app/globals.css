@@ -16,7 +16,7 @@
 
 .favoriteBg{
   background-color: rgba(0,0,0,0.5);
-  height: 100vh;
+  height: 100%;
   border-right: 1px;
   border-style: solid;
 }
