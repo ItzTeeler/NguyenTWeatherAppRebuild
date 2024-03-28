@@ -6,7 +6,7 @@
 
 import { GeoLocation } from "@/Interfaces/Interface";
 import { apikey } from "../Components/Enviroment";
-import { Day5Forcast } from "@/Interfaces/ForcastServices";
+import { Day5Forecast } from "@/Interfaces/ForcastServices";
 import { ReverseGeo } from "@/Interfaces/ReverseGeoLocationInterface";
 
 export const FetchGeoLocation = async (searchInput: string) => {
@@ -23,7 +23,7 @@ export const FetchGeoLocationByLat = async (lat: string | number, lon: string | 
 
 export const Get5Day = async (lat: string, lon: string) => {
     const promise = await fetch(`http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apikey}&units=imperial`);
-    const data: Day5Forcast = await promise.json();
+    const data: Day5Forecast = await promise.json();
     return data; 
 }
 

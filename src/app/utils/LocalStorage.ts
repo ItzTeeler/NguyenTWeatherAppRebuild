@@ -1,9 +1,8 @@
-const saveToLocalStorage = (name:string | undefined, lat: string | number, lon:string | number) => {
+const saveToLocalStorage = (digimon: any) => {
     let favorites = getLocalStorage();
 
-    if (!favorites.some((fav: {name:string,  lat: string | number, lon: string | number }) => fav.lat === lat && fav.lon === lon && fav.name === name)) {
-        favorites.push({name: name, lat: lat, lon: lon });
-        localStorage.setItem("Favorites", JSON.stringify(favorites));
+    if(!favorites.includes(digimon)){
+        favorites.push(digimon);
     }
 
     localStorage.setItem("Favorites", JSON.stringify(favorites));
@@ -18,17 +17,14 @@ const getLocalStorage = () => {
     return JSON.parse(localStorageData);
 }
 
-const removeLocalStorage = (favorite: any) => {
+const removeLocalStorage = (digimon: any) => {
     let favorites = getLocalStorage();
 
-    favorites = favorites.filter((fav: { name:string, lat: string | number; lon: string | number }) => {
-        return fav.lat !== favorite.lat || fav.lon !== favorite.lon || fav.name !== favorite.name;
-    });
+    let namedIndex = favorites.indexOf(digimon);
 
-    localStorage.setItem("Favorites", JSON.stringify(favorites));
-};
+    favorites.splice(namedIndex, 1);
 
-
-
+    localStorage.setItem("Favorites", JSON.stringify(favorites))
+}
 
 export{saveToLocalStorage, getLocalStorage, removeLocalStorage};

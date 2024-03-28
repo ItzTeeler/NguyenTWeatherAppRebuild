@@ -1,4 +1,4 @@
-export interface Day5Forcast {
+export interface Day5Forecast {
     city:    City;
     cnt:     number;
     cod:     string;

@@ -5,6 +5,7 @@ import FavoriteComponent from "../FavoritesComponent/FavoriteComponent";
 import DaysComponent from "../5DaysComponent/DaysComponent";
 import Image from "next/image";
 import UnFav from "@/Assets/WeatherUnFav.png";
+import { Day5Forecast } from "@/Interfaces/ForcastServices";
 import {
     FetchGeoLocation,
     FetchGeoLocationByLat,
@@ -17,7 +18,6 @@ import LargeCloudy from "@/Assets/CloudyLarge.png";
 import LargeSunny from "@/Assets/SunnyLarge.png";
 import LargeFoggy from "@/Assets/FoggyLarge.png";
 import LargeSnow from "@/Assets/SnowLarge.png";
-import { Day5Forcast } from "@/Interfaces/ForcastServices";
 import Fav from "@/Assets/WeatherFav.png";
 import {
     getLocalStorage,
@@ -38,26 +38,28 @@ const MainComponent = () => {
     const [largeWeatherIcon, setLargeWeatherIcon] = useState<any>(LargeSunny);
     const [geoLat, setGeoLat] = useState<string>("");
     const [geoLon, setGeoLon] = useState<string>("");
-    const [day5Forcast, setDay5Forcast] = useState<Day5Forcast>();
+    const [day5Forcast, setDay5Forcast] = useState<Day5Forecast>();
     const [forcastData5, setForcastData5] = useState<Array<any>>([""]);
     const [localName, setLocalName] = useState<string>("");
-    const [saveData, setSaveData] = useState<{name:string, lat: string, lon: string }[] | undefined>();
+    const [saveData, setSaveData] = useState<string[] | undefined>();
     const [geoFetched, setGeoFetched] = useState<boolean>(false);
     const [favIcon, setFavIcon] = useState<any>(UnFav);
     const [toggleBool, setToggleBool] = useState<boolean>(true);
 
     useEffect(() => {
-        const favorites: {lat: string, lon : string}[] = getLocalStorage();
-        const isFavorite = favorites.some((fav: { lat: string | number; lon: string | number }) => {
-            return fav.lat === dataGeoLocationByLat?.coord.lat && fav.lon === dataGeoLocationByLat?.coord.lon;
+        const favorites: string[] = getLocalStorage();
+        const isFavorite = favorites.some((fav: string) => {
+            if (typeof fav === "string") {
+                return fav === userInput;
+            } else {
+                return fav === userInput;
+            }
         });
-
         if (isFavorite) {
             setFavIcon(Fav);
         } else {
             setFavIcon(UnFav);
         }
-
         if (typeof navigator !== "undefined") {
             navigator.geolocation.getCurrentPosition(success, errorFunc);
         } else {
@@ -81,7 +83,7 @@ const MainComponent = () => {
                 String(getLocationByLat.coord.lat),
                 String(getLocationByLat.coord.lon)
             );
-            const get5DayForcast: Day5Forcast = Day5;
+            const get5DayForcast: Day5Forecast = Day5;
             setDay5Forcast(get5DayForcast);
             const forecastData = [];
             if (day5Forcast) {
@@ -378,27 +380,21 @@ const MainComponent = () => {
         });
     };
     const handleFavorite = () => {
-        const locLat = dataGeoLocationByLat?.coord.lat;
-        const locLon = dataGeoLocationByLat?.coord.lon;
-        const locName = dataGeoLocationByLat?.name;
-        if (locLat && locLon) {
-            const favorite = {name: locName, lat: locLat, lon: locLon };
+        const locationName = dataGeoLocationByLat?.name;
+        if (locationName) {
             const favorites = getLocalStorage();
-
-            const isAlreadyFavorite = favorites.some((fav: {name: string, lat: string | number; lon: string | number }) => {
-                return fav.lat === locLat && fav.lon === locLon;
-            });
-
+            const isAlreadyFavorite = favorites.some(
+                (fav: string) => fav === locationName
+            );
             if (isAlreadyFavorite) {
                 setFavIcon(UnFav);
-                removeLocalStorage(favorite);
+                removeLocalStorage(locationName);
             } else {
                 setFavIcon(Fav);
-                saveToLocalStorage(locName, locLat, locLon);
+                saveToLocalStorage(locationName);
             }
         }
     };
-
 
     const handleRemoveFavorite = (input: string) => {
         removeLocalStorage(input);
@@ -417,18 +413,14 @@ const MainComponent = () => {
                     </p>
                     <div>
                         {saveData &&
-                            saveData.map((favorite: {name:string, lat: string, lon: string }, index: number) => (
+                            saveData.map((favorite: string, index: number) => (
                                 <FavoriteComponent
                                     key={index}
-                                    lat={favorite.lat}
-                                    lon={favorite.lon}
-                                    name={favorite.name}
+                                    name={favorite}
                                     setUserInput={setUserInput}
                                     removeFav={handleRemoveFavorite}
                                 />
-                            ))
-                        }
-                        {" "}
+                            ))}{" "}
                     </div>
                 </div>
                 <div className="col-span-8 px-10 md:px-[100px] order-1 md:order-2">
@@ -445,9 +437,8 @@ const MainComponent = () => {
                                 />
                                 <p className="text-[24px]">
                                     {CapitalFirstLetter(
-                                        String(dataGeoLocationByLat?.weather?.[0]?.description)
+                                        String(dataGeoLocationByLat?.weather[0].description)
                                     )}
-
                                 </p>
                             </div>
                             <div className="flex flex-col items-center text-white col-span-12 md:col-span-4 order-1 md:order-2 pb-10">
@@ -463,9 +454,8 @@ const MainComponent = () => {
                                 <div className="text-[100px]">
                                     <p>
                                         {String(
-                                            Math.round(Number(dataGeoLocationByLat?.main?.temp))
+                                            Math.round(Number(dataGeoLocationByLat?.main.temp))
                                         )}
-
                                         <span>°F</span>
                                     </p>
                                 </div>
@@ -475,7 +465,7 @@ const MainComponent = () => {
                                         H:{" "}
                                         <span>
                                             {String(
-                                                Math.round(Number(dataGeoLocationByLat?.main?.temp_max))
+                                                Math.round(Number(dataGeoLocationByLat?.main.temp_max))
                                             )}
                                         </span>
                                     </p>
@@ -483,7 +473,7 @@ const MainComponent = () => {
                                         L:{" "}
                                         <span>
                                             {String(
-                                                Math.round(Number(dataGeoLocationByLat?.main?.temp_min))
+                                                Math.round(Number(dataGeoLocationByLat?.main.temp_min))
                                             )}
                                         </span>
                                     </p>

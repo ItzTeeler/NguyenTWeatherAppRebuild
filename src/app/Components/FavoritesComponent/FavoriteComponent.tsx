@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import RemoveFav from "@/Assets/FavoriteRemove.png";
-import { FetchGeoLocation, FetchGeoLocationByLat, ReverseGeoSearch } from "@/app/utils/DataServices";
+import { FetchGeoLocation, ReverseGeoSearch } from "@/app/utils/DataServices";
 import { removeLocalStorage } from "@/app/utils/LocalStorage";
 import CloudySmall from '@/Assets/CloudySmall.png'
 import SunnySmall from '@/Assets/SunnySmall.png'
@@ -22,7 +22,7 @@ const [stateVar, setStateVar] = useState<string>("");
 
   useEffect(()=>{
     const getData = async () => {
-      const data = await FetchGeoLocationByLat(props.lat, props.lon);
+      const data = await FetchGeoLocation(props.name);
       const reverseData = await ReverseGeoSearch(data.coord.lat, data.coord.lon);
       console.log(data.coord.lat);
       console.log(data.coord.lon);
@@ -45,13 +45,16 @@ const [stateVar, setStateVar] = useState<string>("");
     return formattedInput;
 }
 const handleClick = () => {
-  props.setUserInput(name);
+  props.setUserInput(props.name);
 };
 
 const handleRemove = () => {
   props.removeFav(props.name)
 }
-
+// const handleRemoveFavorite = () =>{
+//   removeLocalStorage(props.name)
+//   setToggleBool(!toggleBool)
+// }
 
 function WeatherIcon(weatherCondition: string) {
   switch (weatherCondition) {
