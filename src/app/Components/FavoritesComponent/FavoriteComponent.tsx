@@ -395,19 +395,19 @@ const FavoriteComponent = (props: {
   };
   return (
     <div className="bg-[#5193DE] py-[10px] pl-[15px] pr-[10px] text-white font-[Inter] mt-[20px] mb-5">
-      <div onClick={handleClick} className="flex justify-between mb-[6px] items-center">
-        <p className="text-[20px]">{`${name}, ${stateVar}`}</p>
+      <div className="flex justify-between mb-[6px] items-center">
+        <p onClick={handleClick} className="text-[20px]">{`${name}, ${stateVar}`}</p>
         <div className="flex items-center">
-          <p className="text-[20px] pr-2">{temp}°F</p>
+          <p onClick={handleClick} className="text-[20px] pr-2">{temp}°F</p>
           <Image src={RemoveFav} onClick={handleRemove} alt="Minus Fav" />
         </div>
       </div>
       <div className="flex justify-between">
         <div className="flex items-center">
-          <Image className="pr-2" src={smallWeatherIcon} alt="CloudySmall" />
-          <p className="text-[12px]">{CapitalFirstLetter(desc)}</p>
+          <Image onClick={handleClick} className="pr-2" src={smallWeatherIcon} alt="CloudySmall" />
+          <p onClick={handleClick} className="text-[12px]">{CapitalFirstLetter(desc)}</p>
         </div>
-        <div className="flex items-center text-[12px]">
+        <div onClick={handleClick} className="flex items-center text-[12px]">
           <p className="pr-2">
             H: <span>{max}</span>
           </p>
