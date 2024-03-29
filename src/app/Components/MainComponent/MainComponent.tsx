@@ -52,7 +52,7 @@ const MainComponent = () => {
     
                 const geoData = await FetchGeoLocation(userInput);
                 setDataGeoLocationByLat(geoData);
-    
+                WeatherIcon(String(geoData.weather[0].description));
                 const locationByLat = await FetchGeoLocationByLat(
                     String(geoData.coord.lat),
                     String(geoData.coord.lon)
@@ -64,7 +64,6 @@ const MainComponent = () => {
                     String(locationByLat.coord.lon)
                 );
                 setDay5Forcast(day5);
-    
                 const forecastData = [];
                 if (day5) {
                     for (let i = 0; i < day5.list.length; i += 8) {
