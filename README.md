@@ -7,7 +7,7 @@ Peer Reviewer -
 Peer Review -
 
 LINKS:
-Vercel - https://www.nguyen-t-weather-app-rebuild-torp.vercel.app
+Vercel - nguyen-t-weather-app-rebuild-torp.vercel.app
 Figma - https://www.figma.com/file/zE0auV3KVRU80BzfYBkPTa/Weather-Sprint?type=design&node-id=0%3A1&mode=design&t=60nKctBZGVQ4qjq1-1
 GitHub - https://github.com/ItzTeeler/NguyenTWeatherAppRebuild
 API - https://openweathermap.org/api
