@@ -33,8 +33,6 @@ const MainComponent = () => {
     const [currentDate, setCurrentDate] = useState<string>("");
     const [currentToday, setCurrentToday] = useState<string>("");
     const [largeWeatherIcon, setLargeWeatherIcon] = useState<StaticImageData>(LargeSunny);
-    const [geoLat, setGeoLat] = useState<string>("");
-    const [geoLon, setGeoLon] = useState<string>("");
     const [day5Forcast, setDay5Forcast] = useState<Day5Forecast>();
     const [forcastData5, setForcastData5] = useState<Array<any>>([""]);
     const [localName, setLocalName] = useState<string>("");

@@ -22,7 +22,6 @@ const FavoriteComponent = (props: {
   const [min, setMin] = useState<string>("");
   const [smallWeatherIcon, setSmallWeatherIcon] = useState<StaticImageData>(SunnySmall);
   const [stateVar, setStateVar] = useState<string>("");
-  // const [toggleBool, setToggleBool] = useState<boolean>(true);
 
   useEffect(() => {
     const getData = async () => {
@@ -52,10 +51,6 @@ const FavoriteComponent = (props: {
   const handleRemove = () => {
     props.removeFav(props.name)
   }
-  // const handleRemoveFavorite = () =>{
-  //   removeLocalStorage(props.name)
-  //   setToggleBool(!toggleBool)
-  // }
 
   function WeatherIcon(weatherCondition: string) {
     switch (weatherCondition) {
@@ -399,8 +394,8 @@ const FavoriteComponent = (props: {
     }
   };
   return (
-    <div className="bg-[#5193DE] py-[10px] pl-[15px] pr-[10px] text-white font-[Inter] mt-[20px] mb-5" onClick={handleClick}>
-      <div className="flex justify-between mb-[6px] items-center">
+    <div className="bg-[#5193DE] py-[10px] pl-[15px] pr-[10px] text-white font-[Inter] mt-[20px] mb-5">
+      <div onClick={handleClick} className="flex justify-between mb-[6px] items-center">
         <p className="text-[20px]">{`${name}, ${stateVar}`}</p>
         <div className="flex items-center">
           <p className="text-[20px] pr-2">{temp}°F</p>
