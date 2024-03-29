@@ -105,7 +105,7 @@ const MainComponent = () => {
                 setCurrentToday(todayDay);
                 setCurrentDate(`${month} ${day}, ${year}`);
             } catch (error) {
-                console.error("Error fetching data:", error);
+                console.error("Error fetching data", error);
             }
         };
     
@@ -356,7 +356,7 @@ const MainComponent = () => {
                 setFavIcon(Fav);
                 saveToLocalStorage(locationName);
             }
-            // Update the saveData state after adding or removing favorites
+     
             setSaveData(getLocalStorage());
         }
     };

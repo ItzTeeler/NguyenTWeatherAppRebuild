@@ -383,31 +383,31 @@ const FavoriteComponent = (props: {
         break;
       case "West Virginia":
         setStateVar("WV");
-        break;
+        break
       case "Wisconsin":
         setStateVar("WI");
         break;
       case "Wyoming":
         setStateVar("WY");
         break;
-      default: setStateVar("");
+      default: setStateVar("N/A");
     }
   };
   return (
     <div className="bg-[#5193DE] py-[10px] pl-[15px] pr-[10px] text-white font-[Inter] mt-[20px] mb-5">
       <div className="flex justify-between mb-[6px] items-center">
-        <p onClick={handleClick} className="text-[20px]">{`${name}, ${stateVar}`}</p>
+        <p onClick={handleClick} className="text-[20px] cursor-pointer">{`${name}, ${stateVar}`}</p>
         <div className="flex items-center">
-          <p onClick={handleClick} className="text-[20px] pr-2">{temp}°F</p>
-          <Image src={RemoveFav} onClick={handleRemove} alt="Minus Fav" />
+          <p onClick={handleClick} className="text-[20px] pr-2 cursor-pointer">{temp}°F</p>
+          <Image src={RemoveFav} onClick={handleRemove} className="cursor-pointer" alt="Minus Fav" />
         </div>
       </div>
       <div className="flex justify-between">
         <div className="flex items-center">
-          <Image onClick={handleClick} className="pr-2" src={smallWeatherIcon} alt="CloudySmall" />
-          <p onClick={handleClick} className="text-[12px]">{CapitalFirstLetter(desc)}</p>
+          <Image onClick={handleClick} className="pr-2 cursor-pointer" src={smallWeatherIcon} alt="CloudySmall" />
+          <p onClick={handleClick} className="text-[12px] cursor-pointer">{CapitalFirstLetter(desc)}</p>
         </div>
-        <div onClick={handleClick} className="flex items-center text-[12px]">
+        <div onClick={handleClick} className="flex items-center text-[12px] cursor-pointer">
           <p className="pr-2">
             H: <span>{max}</span>
           </p>
