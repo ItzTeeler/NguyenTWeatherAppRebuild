@@ -371,7 +371,7 @@ const MainComponent = () => {
     return (
         <div className="backgroundImage font-[Inter]">
             <div className="grid grid-cols-8 md:grid-cols-10">
-                <div className="col-span-12 md:col-span-2 favoriteBg  order-2 md:order-1">
+                <div className="col-span-12 md:col-span-2 favoriteBg overflow-y-auto  order-2 md:order-1">
                     <div className="hidden md:block">
                         <SearchComponent setUserInput={handleSearch} />
                     </div>
