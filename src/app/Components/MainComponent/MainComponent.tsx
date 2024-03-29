@@ -145,10 +145,10 @@ const MainComponent = () => {
             setCurrentToday(todayDay);
             setCurrentDate(`${month} ${day}, ${year}`);
         };
-        WeatherIcon(String(dataGeoLocationByLat?.weather[0].description));
+        WeatherIcon(String(dataGeoLocationByLat?.weather?.[0]?.description));
         getData();
 
-      
+
     }, [userInput, favIcon, toggleBool]);
 
     async function success(position: GeolocationPosition) {
@@ -434,11 +434,11 @@ const MainComponent = () => {
                                     className="pb-10 md:pb-[82px]"
                                 />
                                 <p className="text-[24px]">
-                                    {CapitalFirstLetter(
-                                        String(dataGeoLocationByLat?.weather[0].description)
-                                    )}
+                                    {dataGeoLocationByLat && dataGeoLocationByLat.weather && dataGeoLocationByLat.weather[0] && CapitalFirstLetter(String(dataGeoLocationByLat.weather[0].description))}
                                 </p>
+
                             </div>
+
                             <div className="flex flex-col items-center text-white col-span-12 md:col-span-4 order-1 md:order-2 pb-10">
                                 <div className="flex items-center">
                                     <p className="text-[50px] text-center">{dataGeoLocationByLat?.name}</p>
@@ -451,28 +451,31 @@ const MainComponent = () => {
                                 </div>
                                 <div className="text-[100px]">
                                     <p>
-                                        {String(
-                                            Math.round(Number(dataGeoLocationByLat?.main.temp))
-                                        )}
-                                        <span>°F</span>
+                                        {dataGeoLocationByLat?.main && typeof dataGeoLocationByLat.main.temp !== "undefined" ?
+                                            `${Math.round(Number(dataGeoLocationByLat.main.temp))}°F` :
+                                            "N/A"
+                                        }
                                     </p>
+
                                 </div>
 
                                 <div className="flex flex-row text-[27px]">
                                     <p className="pr-3">
                                         H:{" "}
                                         <span>
-                                            {String(
-                                                Math.round(Number(dataGeoLocationByLat?.main.temp_max))
-                                            )}
+                                            {dataGeoLocationByLat?.main && typeof dataGeoLocationByLat.main.temp_max !== "undefined" ?
+                                                `${Math.round(Number(dataGeoLocationByLat.main.temp_max))}` :
+                                                "N/A"
+                                            }
                                         </span>
                                     </p>
                                     <p>
                                         L:{" "}
                                         <span>
-                                            {String(
-                                                Math.round(Number(dataGeoLocationByLat?.main.temp_min))
-                                            )}
+                                            {dataGeoLocationByLat?.main && typeof dataGeoLocationByLat.main.temp_min !== "undefined" ?
+                                                `${Math.round(Number(dataGeoLocationByLat.main.temp_min))}` :
+                                                "N/A"
+                                            }
                                         </span>
                                     </p>
                                 </div>
