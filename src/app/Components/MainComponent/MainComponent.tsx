@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import SearchComponent from "../SearchComponent/SearchComponent";
 import FavoriteComponent from "../FavoritesComponent/FavoriteComponent";
 import DaysComponent from "../5DaysComponent/DaysComponent";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import UnFav from "@/Assets/WeatherUnFav.png";
 import { Day5Forecast } from "@/Interfaces/ForcastServices";
 import {
@@ -35,7 +35,7 @@ const MainComponent = () => {
     const [currentTime, setCurrentTime] = useState<string>("");
     const [currentDate, setCurrentDate] = useState<string>("");
     const [currentToday, setCurrentToday] = useState<string>("");
-    const [largeWeatherIcon, setLargeWeatherIcon] = useState<any>(LargeSunny);
+    const [largeWeatherIcon, setLargeWeatherIcon] = useState<StaticImageData>(LargeSunny);
     const [geoLat, setGeoLat] = useState<string>("");
     const [geoLon, setGeoLon] = useState<string>("");
     const [day5Forcast, setDay5Forcast] = useState<Day5Forecast>();
@@ -43,7 +43,7 @@ const MainComponent = () => {
     const [localName, setLocalName] = useState<string>("");
     const [saveData, setSaveData] = useState<string[] | undefined>();
     const [geoFetched, setGeoFetched] = useState<boolean>(false);
-    const [favIcon, setFavIcon] = useState<any>(UnFav);
+    const [favIcon, setFavIcon] = useState<StaticImageData>(UnFav);
     const [toggleBool, setToggleBool] = useState<boolean>(true);
 
     useEffect(() => {

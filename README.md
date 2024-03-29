@@ -1,3 +1,17 @@
+Name - Tyler Nguyen
+Date - 03-29-2024
+Lab Name - Weather App Rebuild
+Description - This web application should be a one for one design of a figma. With a functional weather location, using the Open Weather API.
+It should display a 5 day weather forecast, current weather, ability to search, favorites, and geoLocation. 
+Peer Reviewer - 
+Peer Review -
+
+LINKS:
+Vercel - 
+Figma - https://www.figma.com/file/zE0auV3KVRU80BzfYBkPTa/Weather-Sprint?type=design&node-id=0%3A1&mode=design&t=60nKctBZGVQ4qjq1-1
+GitHub - https://github.com/ItzTeeler/NguyenTWeatherAppRebuild
+API - https://openweathermap.org/api
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started

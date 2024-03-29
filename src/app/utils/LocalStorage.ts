@@ -1,8 +1,8 @@
-const saveToLocalStorage = (digimon: any) => {
+const saveToLocalStorage = (location: string) => {
     let favorites = getLocalStorage();
 
-    if(!favorites.includes(digimon)){
-        favorites.push(digimon);
+    if (!favorites.includes(location)) {
+        favorites.push(location);
     }
 
     localStorage.setItem("Favorites", JSON.stringify(favorites));
@@ -11,20 +11,20 @@ const saveToLocalStorage = (digimon: any) => {
 const getLocalStorage = () => {
     let localStorageData = localStorage.getItem("Favorites");
 
-    if(localStorageData == null){
+    if (localStorageData == null) {
         return [];
     }
     return JSON.parse(localStorageData);
 }
 
-const removeLocalStorage = (digimon: any) => {
+const removeLocalStorage = (location: string) => {
     let favorites = getLocalStorage();
 
-    let namedIndex = favorites.indexOf(digimon);
+    let namedIndex = favorites.indexOf(location);
 
     favorites.splice(namedIndex, 1);
 
     localStorage.setItem("Favorites", JSON.stringify(favorites))
 }
 
-export{saveToLocalStorage, getLocalStorage, removeLocalStorage};
+export { saveToLocalStorage, getLocalStorage, removeLocalStorage };

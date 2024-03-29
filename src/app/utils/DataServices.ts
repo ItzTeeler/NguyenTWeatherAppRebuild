@@ -24,7 +24,7 @@ export const FetchGeoLocationByLat = async (lat: string | number, lon: string | 
 export const Get5Day = async (lat: string, lon: string) => {
     const promise = await fetch(`http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apikey}&units=imperial`);
     const data: Day5Forecast = await promise.json();
-    return data; 
+    return data;
 }
 
 export const FetchLocationName = async (lat: string | number, lon: string | number) => {
