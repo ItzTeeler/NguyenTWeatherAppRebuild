@@ -27,11 +27,8 @@ import {
 
 const MainComponent = () => {
     const [userInput, setUserInput] = useState<string>("San Diego");
-    const [dataGeoLocationByLat, setDataGeoLocationByLat] =
-        useState<GeoLocation | null>(null);
-    const [dataGeoLocation, setDataGeoLocation] = useState<GeoLocation | null>(
-        null
-    );
+    const [dataGeoLocationByLat, setDataGeoLocationByLat] = useState<GeoLocation | null>(null);
+    const [dataGeoLocation, setDataGeoLocation] = useState<GeoLocation | null>(null);
     const [currentTime, setCurrentTime] = useState<string>("");
     const [currentDate, setCurrentDate] = useState<string>("");
     const [currentToday, setCurrentToday] = useState<string>("");
