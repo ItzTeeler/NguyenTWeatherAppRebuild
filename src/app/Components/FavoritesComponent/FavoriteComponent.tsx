@@ -28,9 +28,6 @@ const FavoriteComponent = (props: {
     const getData = async () => {
       const data = await FetchGeoLocation(props.name);
       const reverseData = await ReverseGeoSearch(data.coord.lat, data.coord.lon);
-      console.log(data.coord.lat);
-      console.log(data.coord.lon);
-      console.log(reverseData[0].state);
       setName(data.name)
       setTemp(String(Math.round(Number(data.main.temp))))
       setDesc(data.weather[0].description)

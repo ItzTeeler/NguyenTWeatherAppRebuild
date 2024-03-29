@@ -148,12 +148,10 @@ const MainComponent = () => {
         WeatherIcon(String(dataGeoLocationByLat?.weather[0].description));
         getData();
 
-        console.log(saveData);
+      
     }, [userInput, favIcon, toggleBool]);
 
     async function success(position: GeolocationPosition) {
-        console.log("Our latitude: " + position.coords.latitude);
-        console.log("Our longitude: " + position.coords.longitude);
         const locoName = await FetchLocationName(
             position.coords.latitude,
             position.coords.longitude
