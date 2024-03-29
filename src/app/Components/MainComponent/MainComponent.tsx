@@ -32,7 +32,7 @@ const MainComponent = () => {
     const [dataGeoLocation, setDataGeoLocation] = useState<GeoLocation | null>(
         null
     );
-    const [currentTime, setCurrentTime] = useState<string>("");
+    const [currentTime, setCurrentTime] = useState<string>("San Diego");
     const [currentDate, setCurrentDate] = useState<string>("");
     const [currentToday, setCurrentToday] = useState<string>("");
     const [largeWeatherIcon, setLargeWeatherIcon] = useState<StaticImageData>(LargeSunny);
