@@ -21,7 +21,7 @@ export const FetchGeoLocationByLat = async (lat: string | number, lon: string | 
 }
 
 export const Get5Day = async (lat: string, lon: string) => {
-    const promise = await fetch(`http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${process.env.NEXT_PUBLIC_ANALYTICS_ID}&units=imperial`);
+    const promise = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${process.env.NEXT_PUBLIC_ANALYTICS_ID}&units=imperial`);
     const data: Day5Forecast = await promise.json();
     return data;
 }
@@ -33,7 +33,7 @@ export const FetchLocationName = async (lat: string | number, lon: string | numb
 }
 
 export const ReverseGeoSearch = async (lat: string | number, lon: string | number) => {
-    const promise = await fetch(`http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${process.env.NEXT_PUBLIC_ANALYTICS_ID}`)
+    const promise = await fetch(`https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${process.env.NEXT_PUBLIC_ANALYTICS_ID}`)
     const data: ReverseGeo[] = await promise.json();
     return data;
 }
