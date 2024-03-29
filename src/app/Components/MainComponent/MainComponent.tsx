@@ -47,80 +47,109 @@ const MainComponent = () => {
     const [toggleBool, setToggleBool] = useState<boolean>(true);
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const favorites = getLocalStorage();
-                const isFavorite = favorites.some((fav: string) => fav === userInput);
-                setFavIcon(isFavorite ? Fav : UnFav);
-    
-                const geoData = await FetchGeoLocation(userInput);
-                setDataGeoLocationByLat(geoData);
-    
-                const locationByLat = await FetchGeoLocationByLat(
-                    String(geoData.coord.lat),
-                    String(geoData.coord.lon)
-                );
-                setDataGeoLocationByLat(locationByLat);
-    
-                const day5 = await Get5Day(
-                    String(locationByLat.coord.lat),
-                    String(locationByLat.coord.lon)
-                );
-                setDay5Forcast(day5);
-    
-                const forecastData = [];
-                if (day5) {
-                    for (let i = 0; i < day5.list.length; i += 8) {
-                        let highestTemp = day5.list[i].main.temp_max;
-                        let lowestTemp = day5.list[i].main.temp_min;
-                        let weatherDesc = day5.list[i].weather[0].description;
-                        for (let j = i + 1; j < i + 8; j++) {
-                            const item = day5.list[j];
-                            highestTemp = Math.max(highestTemp, item.main.temp_max);
-                            lowestTemp = Math.min(lowestTemp, item.main.temp_min);
-                        }
-    
-                        forecastData.push({
-                            highestTemp: Math.round(highestTemp),
-                            lowestTemp: Math.round(lowestTemp),
-                            weatherIcon: weatherDesc,
-                        });
-                    }
-                    setForcastData5(forecastData);
-                }
-    
-                const currentTime = new Date();
-                const hours = currentTime.getHours();
-                const minutes = currentTime.getMinutes();
-                const amOrPm = hours >= 12 ? "PM" : "AM";
-                const formattedHours = hours % 12 || 12;
-                const formattedMinutes = minutes < 10 ? "0" + minutes : minutes;
-                setCurrentTime(`${formattedHours}:${formattedMinutes} ${amOrPm}`);
-    
-                const allMonths = [
-                    "January", "February", "March", "April", "May", "June",
-                    "July", "August", "September", "October", "November", "December",
-                ];
-                const allDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-                const day = currentTime.getDate();
-                const month = allMonths[currentTime.getMonth()];
-                const year = currentTime.getFullYear();
-                const todayDay = allDays[currentTime.getDay()];
-                setCurrentToday(todayDay);
-                setCurrentDate(`${month} ${day}, ${year}`);
-            } catch (error) {
-                console.error("Error fetching data:", error);
+        const favorites: string[] = getLocalStorage();
+        const isFavorite = favorites.some((fav: string) => {
+            if (typeof fav === "string") {
+                return fav === userInput;
+            } else {
+                return fav === userInput;
             }
-        };
-    
-        fetchData();
+        });
+        if (isFavorite) {
+            setFavIcon(Fav);
+        } else {
+            setFavIcon(UnFav);
+        }
         if (typeof navigator !== "undefined") {
             navigator.geolocation.getCurrentPosition(success, errorFunc);
         } else {
             console.error("navigator is not available");
         }
+        const getData = async () => {
+            const saveData = getLocalStorage();
+            setSaveData(saveData);
+            const geoLocation = await FetchGeoLocation(userInput);
+            const geoData: GeoLocation = geoLocation;
+            setDataGeoLocationByLat(geoData);
+
+            const getLocationByLat = await FetchGeoLocationByLat(
+                String(geoData.coord.lat),
+                String(geoData.coord.lon)
+            );
+            const getDataByLat: GeoLocation = getLocationByLat;
+            setDataGeoLocationByLat(getDataByLat);
+
+            const Day5 = await Get5Day(
+                String(getLocationByLat.coord.lat),
+                String(getLocationByLat.coord.lon)
+            );
+            const get5DayForcast: Day5Forecast = Day5;
+            setDay5Forcast(get5DayForcast);
+            const forecastData = [];
+            if (day5Forcast) {
+                for (let i = 0; i < day5Forcast.list.length; i += 8) {
+                    let highestTemp = day5Forcast.list[i].main.temp_max;
+                    let lowestTemp = day5Forcast.list[i].main.temp_min;
+                    let weatherDesc = day5Forcast.list[i].weather[0].description;
+                    for (let j = i + 1; j < i + 8; j++) {
+                        const item = day5Forcast.list[j];
+                        highestTemp = Math.max(highestTemp, item.main.temp_max);
+                        lowestTemp = Math.min(lowestTemp, item.main.temp_min);
+                    }
+
+                    forecastData.push({
+                        highestTemp: Math.round(highestTemp),
+                        lowestTemp: Math.round(lowestTemp),
+                        weatherIcon: weatherDesc,
+                    });
+                }
+                setForcastData5(forecastData);
+            }
+
+            const currentTime = new Date();
+            let hours = currentTime.getHours();
+            const minutes = currentTime.getMinutes();
+            const amOrPm = hours >= 12 ? "PM" : "AM";
+            hours = hours % 12 || 12;
+            const formattedHours = hours < 10 ? "0" + hours : hours;
+            const formattedMinutes = minutes < 10 ? "0" + minutes : minutes;
+            setCurrentTime(formattedHours + ":" + formattedMinutes + " " + amOrPm);
+            let allMonths = [
+                "January",
+                "February",
+                "March",
+                "April",
+                "May",
+                "June",
+                "July",
+                "August",
+                "September",
+                "October",
+                "November",
+                "December",
+            ];
+            let allDays = [
+                "Sunday",
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday",
+            ];
+
+            const day = currentTime.getDate();
+            const month = allMonths[currentTime.getMonth()];
+            const year = currentTime.getFullYear();
+            const todayDay = allDays[currentTime.getDay()];
+            setCurrentToday(todayDay);
+            setCurrentDate(`${month} ${day}, ${year}`);
+        };
+        WeatherIcon(String(dataGeoLocationByLat?.weather?.[0]?.description));
+        getData();
+
+
     }, [userInput, favIcon, toggleBool]);
-    
 
     async function success(position: GeolocationPosition) {
         const locoName = await FetchLocationName(
